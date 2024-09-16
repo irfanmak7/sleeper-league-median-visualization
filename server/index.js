@@ -58,9 +58,6 @@ function buildTeamScores(matchups, users, rosters) {
     };
   });
 
-  test_ownerId = '860384686659203072'
-  console.log(userDict[test_ownerId])
-
   const rosterDict = {};
   rosters.forEach(roster => {
     rosterDict[roster.roster_id] = {
