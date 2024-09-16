@@ -73,7 +73,7 @@ function buildTeamScores(matchups, users, rosters) {
     const ownerId = rosterInfo.ownerId;
     const user = userDict[ownerId] || { displayName: 'Unknown', avatarId: null, teamName: 'N/A' };
     const points = matchup.points || 0;
-    const avatarUrl = user.metadata.avatar
+    const avatarUrl = user.avatarId
       ? `https://sleepercdn.com/avatars/thumbs/${user.avatarId}`
       : null;
 
