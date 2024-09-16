@@ -10,7 +10,7 @@ const app = express();
 const PORT = 5000;
 
 app.use(cors({
-  origin: '*'
+  origin: 'https://sleeper-league-median-visualization-u9aq.onrender.com'
 }));
 
 // Helper functions to interact with Sleeper API
