@@ -71,9 +71,9 @@ function buildTeamScores(matchups, users, rosters) {
   matchups.forEach(matchup => {
     const rosterInfo = rosterDict[matchup.roster_id];
     const ownerId = rosterInfo.ownerId;
-    const user = userDict[ownerId] || { displayName: 'Unknown', avatarId: null };
+    const user = userDict[ownerId] || { displayName: 'Unknown', avatarId: null, teamName: 'N/A' };
     const points = matchup.points || 0;
-    const avatarUrl = user.avatarId
+    const avatarUrl = user.metadata.avatar
       ? `https://sleepercdn.com/avatars/thumbs/${user.avatarId}`
       : null;
 
