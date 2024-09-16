@@ -9,7 +9,9 @@ const cors = require('cors');
 const app = express();
 const PORT = 5000;
 
-app.use(cors());
+app.use(cors({
+  origin: '*'
+}));
 
 // Helper functions to interact with Sleeper API
 async function getUserId(username) {
