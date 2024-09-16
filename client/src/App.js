@@ -14,11 +14,12 @@ function App() {
   const [week, setWeek] = useState('');
   const [error, setError] = useState('');
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
   const handleUsernameSubmit = e => {
     e.preventDefault();
     setError('');
     axios
-      .get(`/api/user/${username}`)
+      .get(`${backendUrl}/api/user/${username}`)
       .then(response => {
         setUserId(response.data.userId);
       })

@@ -3,12 +3,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const WeekSelection = ({ onWeekSelect }) => {
   const [weeks, setWeeks] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState(1);
 
   useEffect(() => {
-    axios.get('/api/weeks').then(response => {
+    axios.get(`${backendUrl}/api/weeks`).then(response => {
       setWeeks(response.data);
       if (response.data.length > 0) {
         setSelectedWeek(response.data[response.data.length - 1]);

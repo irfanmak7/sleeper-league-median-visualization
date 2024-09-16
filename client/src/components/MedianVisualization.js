@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const MedianVisualization = ({ leagueId, week, onChangeLeague, onChangeWeek }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
@@ -10,7 +11,7 @@ const MedianVisualization = ({ leagueId, week, onChangeLeague, onChangeWeek }) =
   useEffect(() => {
     setError('');
     axios
-      .get('/api/median', { params: { leagueId, week } })
+      .get(`${backendUrl}/api/median`, { params: { leagueId, week } })
       .then(response => {
         setData(response.data);
       })
