@@ -56,10 +56,13 @@ async function getRosters(league_id) {
 
 function buildTeamScores(matchups, users, rosters) {
   const userDict = {};
+  console.log(users)
   users.forEach(user => {
     userDict[user.user_id] = {
       displayName: user.display_name,
       avatarId: user.avatar,
+      defaultAvatarLink: user.avatar ? `https://sleepercdn.com/avatars/thumbs/${user.avatar}` : null,
+      customAvatarLink: user.metadata.avatar ? user.metadata.avatar : null,
       teamName: user.metadata.team_name
     };
   });
@@ -79,9 +82,9 @@ function buildTeamScores(matchups, users, rosters) {
     const ownerId = rosterInfo.ownerId;
     const user = userDict[ownerId] || { displayName: 'Unknown', avatarId: null, teamName: 'N/A' };
     const points = matchup.points || 0;
-    const avatarUrl = user.avatarId
-      ? `https://sleepercdn.com/avatars/thumbs/${user.avatarId}`
-      : null;
+    const avatarUrl = user.customAvatarLink
+      ? user.customAvatarLink
+      : user.defaultAvatarLink;
 
     teamScores.push({
       teamName: rosterInfo.teamName,
