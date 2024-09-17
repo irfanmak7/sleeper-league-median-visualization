@@ -1,5 +1,9 @@
 // server/index.js
 
+require('dotenv').config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env.development'
+});
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 const express = require('express');
@@ -7,10 +11,12 @@ const axios = require('axios');
 const cors = require('cors');
 
 const app = express();
-const PORT = 5000;
+const PORT = 8080;
+
+const allowedOrigin = process.env.NODE_ENV === 'production' ? 'https://sleeper-league-median-visualization-u9aq.onrender.com' : 'http://localhost:3000';
 
 app.use(cors({
-  origin: 'https://sleeper-league-median-visualization-u9aq.onrender.com'
+  origin: allowedOrigin
 }));
 
 // Helper functions to interact with Sleeper API
