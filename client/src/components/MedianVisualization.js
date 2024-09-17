@@ -7,19 +7,41 @@ const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const MedianVisualization = ({ leagueId, week, onChangeLeague, onChangeWeek }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState('');
+  const [lastUpdated, setLastUpdated] = useState(null);
+
 
   useEffect(() => {
-    setError('');
-    axios
-      .get(`${backendUrl}/api/median`, { params: { leagueId, week } })
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching median data:', error);
-        setError('No data available for the selected league and week.');
-      });
+    let isMounted = true; // To prevent state updates on unmounted components
+    let intervalId;
+  
+    const fetchData = () => {
+      setError('');
+      axios
+        .get(`${backendUrl}/api/median`, { params: { leagueId, week } })
+        .then(response => {
+          if (isMounted) {
+            setData(response.data);
+            setLastUpdated(new Date());
+          }
+        })
+        .catch(error => {
+          console.error('Error fetching median data:', error);
+          if (isMounted) {
+            setError('No data available for the selected league and week.');
+          }
+        });
+    };
+  
+    fetchData(); // Fetch data immediately when component mounts
+  
+    intervalId = setInterval(fetchData, 30000); // Fetch data every 30 seconds
+  
+    return () => {
+      isMounted = false;
+      clearInterval(intervalId);
+    };
   }, [leagueId, week]);
+  
 
   if (error) {
     return (
@@ -71,6 +93,10 @@ const MedianVisualization = ({ leagueId, week, onChangeLeague, onChangeWeek }) =
         })}
       </div>
       <p className="median">League Median: {median.toFixed(2)} pts</p>
+      {lastUpdated && (<p className="last-updated">Last updated at {lastUpdated.toLocaleTimeString()}
+  </p>
+)}
+
     </div>
   );
 };

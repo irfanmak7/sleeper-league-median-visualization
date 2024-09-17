@@ -178,6 +178,13 @@ h3 {
   font-weight: 500;
 }
 
+.last-updated {
+  text-align: center;
+  font-size: 14px;
+  color: #BBBBBB;
+  margin-top: 10px;
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
   .team-list {
