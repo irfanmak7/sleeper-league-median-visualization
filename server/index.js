@@ -29,7 +29,7 @@ async function getUserId(username) {
   }
 }
 
-async function getUserLeagues(user_id, sport = 'nfl', season = '2024') {
+async function getUserLeagues(user_id, sport = 'nfl', season = '2025') {
   const response = await axios.get(`https://api.sleeper.app/v1/user/${user_id}/leagues/${sport}/${season}`);
   return response.data;
 }
