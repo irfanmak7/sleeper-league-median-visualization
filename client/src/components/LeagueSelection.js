@@ -8,7 +8,7 @@ const LeagueSelection = ({ userId, onLeagueSelect }) => {
   const [selectedLeague, setSelectedLeague] = useState('');
 
   useEffect(() => {
-    axios.get(`https://api.sleeper.app/v1/user/${userId}/leagues/nfl/2024`).then(response => {
+    axios.get(`https://api.sleeper.app/v1/user/${userId}/leagues/nfl/2025`).then(response => {
       setLeagues(response.data);
       if (response.data.length > 0) {
         setSelectedLeague(response.data[0].league_id);
